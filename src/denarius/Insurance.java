@@ -20,7 +20,7 @@ public class Insurance {
             throw new Exception("Insurance type not found");
         }
         this.insurNum = insurNum;
-        owned = true;
+        owned = false;
     }
 
     public void setInsurance(boolean owned) {

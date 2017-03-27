@@ -20,6 +20,7 @@ public class Denarius {
     private int prevPos;
     private int d;
     private BoardTile tile;
+    private Assets gameAssets;
 
     public Denarius() {
         dice = new Dice();
@@ -29,6 +30,7 @@ public class Denarius {
     public void startGame() {
         Scanner scan = new Scanner(System.in);
         gameRunning = true;
+        boolean setupInput = true;
         // Starting information about how to play
         System.out.println("----------INSTRUCTIONS----------");
         System.out.println("To continue with the game type 'ROLL' ");
@@ -43,19 +45,41 @@ public class Denarius {
         } else {
             p1 = new Player(input);
         }
+        
+        gameAssets = new Assets("src/denarius/Assets.txt");
         // Own/Rent and starting Balance
         System.out.println("Own or Rent a House: ");
-        input = scan.nextLine();
-        if (input.compareToIgnoreCase("OWN") == 0) {
-            p1.changeHousing();
-            p1.setBalance(1000);
-        } else {
-            p1.setBalance(25000);
+        while (setupInput) {
+            input = scan.nextLine();
+            if (input.compareToIgnoreCase("OWN") == 0) {
+                p1.changeHousing();
+                p1.setBalance(1000);
+                setupInput = false;
+            } else if (input.compareToIgnoreCase("RENT") == 0) {
+                p1.setBalance(25000);
+                setupInput = false;
+            } else {
+                System.out.println("Please put Own or Rent");
+            }
         }
+        // What insurances you have
         for (int i = 0; i < 4; i++) {
-
-            switch (i) {
-                case 0:
+            setupInput = true;
+            System.out.println("Do you have " + p1.getInsurance(i).getInsurance()
+                    + " Insurance? Y/N");
+            while (setupInput) {
+                input = scan.nextLine();
+                if (input.compareToIgnoreCase("YES") == 0 
+                        || input.compareToIgnoreCase("Y") == 0) {
+                    p1.getInsurance(i).setInsurance(true);
+                    setupInput = false;
+                } else if (input.compareToIgnoreCase("NO") == 0 
+                        || input.compareToIgnoreCase("N") == 0 ) {
+                    // Does nothing here as by default you don't have insurance
+                    setupInput = false;
+                } else {
+                    System.out.println("Please put Yes or No");
+                }
             }
         }
 
@@ -80,7 +104,7 @@ public class Denarius {
         if (command.compareToIgnoreCase("QUIT") == 0) {
             gameRunning = false;
             return true;
-        } else if (command.compareToIgnoreCase("SELL") == 0) {
+        } else if (command.toLowerCase().contains("SELL")) {
             return true;
         } else if (command.compareToIgnoreCase("ROLL") == 0) {
             prevPos = p1.getPos();
@@ -99,9 +123,9 @@ public class Denarius {
         int modDay = 0;
         for (int i = 0; i < d; i++) {
             modDay = (prevPos + i) % 14;
-            balanceCalculator(modDay, 1);
+            balanceCalculator(modDay, 1, i);
             modDay = (prevPos + i) % 30;
-            balanceCalculator(modDay, 2);
+            balanceCalculator(modDay, 2, i);
         }
     }
 
@@ -109,11 +133,11 @@ public class Denarius {
     /* mod14 - Pay, Groceries, Rent/Mortgage  
      * mod30 - Phone, Utilities, Insurance
      */
-    private void balanceCalculator(int rem, int set) {
+    private void balanceCalculator(int rem, int set, int tileInc) {
         ArrayList<String> section = new ArrayList<>();
         String[] output = new String[5];
         String[] splitText;
-        int curTile = prevPos + rem - 1;    // Current Tile
+        int curTile = prevPos + tileInc;    // Current Tile
         try {
             // Chance for Null Pointer due to empty tiles
             section = tile.getTile(rem, set);
@@ -176,8 +200,8 @@ public class Denarius {
             System.out.println(p1.getInsurance(i).getInsurance() + ": \t"
                     + p1.getInsurance(i).getOwned());
         }
-        System.out.println("Assets - Cost - FSV: ");
-        for (Entry<String, String> hm : p1.getAssets().entrySet()) {
+        System.out.println("Assets - Value - FSV: ");
+        for (Entry<String, String> hm : p1.getAssets().getAssets(1).entrySet()) {
             System.out.println(hm.getKey() + ": " + hm.getValue());
         }
     }

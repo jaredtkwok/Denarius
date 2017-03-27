@@ -22,13 +22,13 @@ public class Player {
     private int balance = 0;
     private int position = 1;
     private Insurance[] insurance = new Insurance[4];
-    public HashMap<String, String> oAssets = new HashMap<>();
+    private Assets oAssets;
 
     public Player() {
         name = "No Name";
         // Initialise Variables
         iInsurance();
-        iAssets();
+        oAssets = new Assets("src/denarius/startingAssets.txt");
 
     }
 
@@ -36,7 +36,7 @@ public class Player {
         this.name = name;
         // Initialise Variables
         iInsurance();
-        iAssets();
+        oAssets = new Assets("src/denarius/startingAssets.txt");
     }
 
     public String getName() {
@@ -87,45 +87,18 @@ public class Player {
     // End Balance Section
 
     // Asset Section
-    private void iAssets() {
-        String[] splitText;     // Splits input from reader to be put into Hashmap
-        String key;             // Name of asset
-        String value;           // Value of assest and FSV
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("src/denarius/startingAssets.txt"));
-            String assetValue;
-            while ((assetValue = br.readLine()) != null) {
-                if (assetValue.contains("//")) {
-                } else {
-                    splitText = assetValue.split("-");
-                    key = splitText[0];
-                    value = splitText[1];
-                    oAssets.put(key, value);
-                }
-            }
-            br.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found");
-        } catch (IOException ex) {
-            System.out.println("Read line Error");
-        }
-    }
-    
-    public HashMap<String, String> getAssets(){     
+    public Assets getAssets() {
         return oAssets;
     }
-    
-    public int assetSize(){
-        return oAssets.size();
-    }
-    
-    public void addAsset(String k, String v) {
-        oAssets.put(k, v);
+
+    public int assetSize() {
+        return oAssets.getAssets(1).size();
     }
 
+
     // x is the position of insurance in array
-    public String removeAsset(String k) {
-        return oAssets.remove(k);
+    public Assets removeAsset(String k) {
+        return oAssets;
     }
     // End Asset Section
 
@@ -141,6 +114,7 @@ public class Player {
         }
     }
     // x is the position of insurance in array
+
     public Insurance getInsurance(int x) {
         return insurance[x];
     }
