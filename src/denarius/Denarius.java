@@ -36,7 +36,7 @@ public class Denarius {
         System.out.println("To continue with the game type 'ROLL' ");
         System.out.println("To quit type 'Quit' ");
         //System.out.println("For help during the game type 'Help' ");
-
+        
         // Setup Profile
         System.out.println("Enter your name: ");
         String input = scan.nextLine();
