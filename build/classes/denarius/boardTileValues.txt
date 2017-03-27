@@ -11,7 +11,7 @@
 3-Decrease Phone 100
 10-Decrease Utilities 180
 // Insurance
-4-Decrease Life 100
-12-Decrease Medical 80
-24-Decrease House 350
-25-Decrease Car 40
+4-Decrease LifeInsurance 100
+12-Decrease MedicalInsurance 80
+24-Decrease HouseInsurance 350
+25-Decrease CarInsurance 40

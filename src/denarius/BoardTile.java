@@ -18,9 +18,9 @@ import java.util.HashMap;
 public class BoardTile {
     // Mod 14 Tiles - repeated fortnightly
 
-    public HashMap<Integer, ArrayList<String>> tile14 = new HashMap<>();
+    private HashMap<Integer, ArrayList<String>> tile14 = new HashMap<>();
     // Mod 30 Tiles - repeated monthly
-    public HashMap<Integer, ArrayList<String>> tile30 = new HashMap<>();
+    private HashMap<Integer, ArrayList<String>> tile30 = new HashMap<>();
 
     public BoardTile() {
         int divider = 0;    // Decides which Hashmap to put tile in
@@ -40,16 +40,13 @@ public class BoardTile {
                     key = Integer.parseInt(splitText[0]);
                     value = splitText[1];
                     if (divider == 14) {
-
                         if (tile14.containsKey(key)) {
                             tile14.get(key).add(value);
                         } else {
                             tile14.put(key, new ArrayList<String>());
                             tile14.get(key).add(value);
                         }
-
                     } else {
-
                         if (tile30.containsKey(key)) {
                             tile30.get(key).add(value);
                         } else {
@@ -64,6 +61,14 @@ public class BoardTile {
             System.out.println("File not found");
         } catch (IOException ex) {
             System.out.println("Read line Error");
+        }
+    }
+
+    public ArrayList<String> getTile(int rem, int set) {
+        if (set == 1) {
+            return tile14.get(rem);
+        } else {
+            return tile30.get(rem);
         }
     }
 }

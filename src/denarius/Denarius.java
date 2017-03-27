@@ -112,19 +112,14 @@ public class Denarius {
         ArrayList<String> section = new ArrayList<>();
         String[] output = new String[5];
         String[] splitText;
+        int curTile = prevPos + rem - 1;    // Current Tile
         try {
-            if (set == 1) {
-                section = tile.tile14.get(rem);
-
-                for (int i = 0; i < section.size(); i++) {
-                    output[i] = section.get(i);
-                }
-            } else {
-                section = tile.tile30.get(rem);
-                for (int i = 0; i < section.size(); i++) {
-                    output[i] = section.get(i);
-                }
+            // Chance for Null Pointer due to empty tiles
+            section = tile.getTile(rem, set);
+            for (int i = 0; i < section.size(); i++) {
+                output[i] = section.get(i);
             }
+
             if (!output[0].isEmpty()) {
                 // Each tile has a String which split into sections of 3
                 // Inc/Dec - Type - value
@@ -133,17 +128,27 @@ public class Denarius {
                 } else {
                     splitText = output[0].split(" ");
                 }
+
                 String tileString = splitText[1];
                 int tileValue = Integer.parseInt(splitText[2]);
-                if (splitText[0].compareTo("Increase") == 0) {
+                if (tileString.contains("Insurance")) {
+                    for (int i = 0; i < 4; i++) {
+                        if (tileString.contains(p1.insurance[i].getInsurance())
+                                && p1.getInsurance(i).getOwned().contains("Yes")) {
+                            p1.subtractBalance(tileValue);
+                            System.out.println(curTile + ": " + tileString + " -$" + tileValue);
+                        }
+                    }
+                } else if (splitText[0].compareTo("Increase") == 0) {
                     p1.addBalance(tileValue);
-                    System.out.println(tileString + " $" + tileValue);
+                    System.out.println(curTile + ": " + tileString + " $" + tileValue);
                 } else {
                     p1.subtractBalance(tileValue);
-                    System.out.println(tileString + " -$" + tileValue);
+                    System.out.println(curTile + ": " + tileString + " -$" + tileValue);
                 }
             }
         } catch (Exception e) {
+            // Catches Null Pointer
         }
     }
 
@@ -166,7 +171,7 @@ public class Denarius {
         for (int i = 0; i < 4; i++) {
             System.out.println(p1.getInsurance(i).getInsurance() + ": \t" + p1.getInsurance(i).getOwned());
         }
-        
+
 
     }
 

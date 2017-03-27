@@ -21,7 +21,7 @@ public class Player {
     private boolean housing = false;
     private int balance = 0;
     private int position = 1;
-    private Insurance[] insurance = new Insurance[4];
+    public Insurance[] insurance = new Insurance[4];
     private ArrayList<String> section = new ArrayList<>();
     public HashMap<String, String> oAssets = new HashMap<>();
 
@@ -112,8 +112,8 @@ public class Player {
         }
     }
     
-    public void getAssets(){
-    
+    public String getAssets(String k){     
+        return oAssets.get(k);
     }
     
     public void addAsset(String k, String v) {

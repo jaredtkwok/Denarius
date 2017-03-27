@@ -10,7 +10,7 @@ package denarius;
  */
 public class Insurance {
 
-    public String[] insuranceTypes = {"Life", "Medical", "House/Content", "Car"};
+    private String[] insuranceTypes = {"Life", "Medical", "House/Content", "Car"};
     private boolean owned;
     private int insurNum;
 
@@ -19,7 +19,7 @@ public class Insurance {
             throw new Exception("Insurance type not found");
         }
         this.insurNum = insurNum;
-        owned = false;
+        owned = true;
     }
 
     public void setInsurance(boolean owned) {
