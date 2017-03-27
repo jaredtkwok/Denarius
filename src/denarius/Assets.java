@@ -1,6 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*  
+ *******************************************************************************
+ *  Denarius
+ *  Assets.java
+ *  Assets which players can obtain during the game
+ *  Author: Jared Kwok
+ *******************************************************************************
  */
 package denarius;
 
@@ -10,15 +14,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-/**
- *
- * @author Jared
- */
 public class Assets {
     // Assets given to players at the start
-    public HashMap<String, String> sAssets = new HashMap<>();
+    // private HashMap<String, String> sAssets = new HashMap<>();
     // Assets gain while playing
-    public HashMap<String, String> assets = new HashMap<>();
+    private HashMap<String, String> assets = new HashMap<>();
 
     public Assets() {
         String[] splitText;     // Splits input from reader to be put into Hashmap
@@ -43,4 +43,9 @@ public class Assets {
             System.out.println("Read line Error");
         }
     }
+    
+    public String getAsset(String k){
+        return assets.get(k);
+    }
+    
 }

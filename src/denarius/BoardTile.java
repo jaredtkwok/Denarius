@@ -1,6 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*  
+ *******************************************************************************
+ *  Denarius
+ *  BoardTile.java
+ *  Landing on a tile has a possible or negative effect on the player
+ *  Author: Jared Kwok
+ *******************************************************************************
  */
 package denarius;
 
@@ -11,10 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author Jared
- */
 public class BoardTile {
     // Mod 14 Tiles - repeated fortnightly
 

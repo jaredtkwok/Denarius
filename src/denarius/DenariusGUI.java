@@ -1,6 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*  
+ *******************************************************************************
+ *  Denarius
+ *  DenariusGUI.java
+ *  GUI version of Denarius
+ *  Author: Jared Kwok
+ *******************************************************************************
  */
 package denarius;
 
@@ -8,15 +12,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-/**
- *
- * @author Jared
- */
 public class DenariusGUI {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         //GameView game = new GameView();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

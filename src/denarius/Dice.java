@@ -1,13 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*  
+ *******************************************************************************
+ *  Denarius
+ *  Dice.java
+ *  Rolls 2 dice
+ *  Author: Jared Kwok
+ *******************************************************************************
  */
 package denarius;
 
-/**
- *
- * @author Jared
- */
 public class Dice {
     public int dice;
     

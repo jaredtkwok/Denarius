@@ -1,6 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*  
+ *******************************************************************************
+ *  Denarius
+ *  Player.java
+ *  Player profile 
+ *  Name, Housing, Balance, Position, Insurance, and Assets
+ *  Author: Jared Kwok
+ *******************************************************************************
  */
 package denarius;
 
@@ -8,21 +13,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author Jared
- */
 public class Player {
 
     private String name;
     private boolean housing = false;
     private int balance = 0;
     private int position = 1;
-    public Insurance[] insurance = new Insurance[4];
-    private ArrayList<String> section = new ArrayList<>();
+    private Insurance[] insurance = new Insurance[4];
     public HashMap<String, String> oAssets = new HashMap<>();
 
     public Player() {
@@ -112,8 +111,12 @@ public class Player {
         }
     }
     
-    public String getAssets(String k){     
-        return oAssets.get(k);
+    public HashMap<String, String> getAssets(){     
+        return oAssets;
+    }
+    
+    public int assetSize(){
+        return oAssets.size();
     }
     
     public void addAsset(String k, String v) {
@@ -138,7 +141,6 @@ public class Player {
         }
     }
     // x is the position of insurance in array
-
     public Insurance getInsurance(int x) {
         return insurance[x];
     }

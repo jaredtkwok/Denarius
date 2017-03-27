@@ -1,16 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*  
+ *******************************************************************************
+ *  Denarius
+ *  Denarius.java
+ *  Text Based Version
+ *  Author: Jared Kwok
+ *******************************************************************************
  */
 package denarius;
 
 import java.util.ArrayList;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
-/**
- *
- * @author Jared
- */
 public class Denarius {
 
     private boolean gameRunning;
@@ -133,18 +134,21 @@ public class Denarius {
                 int tileValue = Integer.parseInt(splitText[2]);
                 if (tileString.contains("Insurance")) {
                     for (int i = 0; i < 4; i++) {
-                        if (tileString.contains(p1.insurance[i].getInsurance())
+                        if (tileString.contains(p1.getInsurance(i).getInsurance())
                                 && p1.getInsurance(i).getOwned().contains("Yes")) {
                             p1.subtractBalance(tileValue);
-                            System.out.println(curTile + ": " + tileString + " -$" + tileValue);
+                            System.out.println(curTile + ": " + tileString + " -$"
+                                    + tileValue);
                         }
                     }
                 } else if (splitText[0].compareTo("Increase") == 0) {
                     p1.addBalance(tileValue);
-                    System.out.println(curTile + ": " + tileString + " $" + tileValue);
+                    System.out.println(curTile + ": " + tileString + " $"
+                            + tileValue);
                 } else {
                     p1.subtractBalance(tileValue);
-                    System.out.println(curTile + ": " + tileString + " -$" + tileValue);
+                    System.out.println(curTile + ": " + tileString + " -$"
+                            + tileValue);
                 }
             }
         } catch (Exception e) {
@@ -169,10 +173,13 @@ public class Denarius {
         System.out.println("Housing: " + p1.getHousing());
         System.out.println("Insurance: ");
         for (int i = 0; i < 4; i++) {
-            System.out.println(p1.getInsurance(i).getInsurance() + ": \t" + p1.getInsurance(i).getOwned());
+            System.out.println(p1.getInsurance(i).getInsurance() + ": \t"
+                    + p1.getInsurance(i).getOwned());
         }
-
-
+        System.out.println("Assets - Cost - FSV: ");
+        for (Entry<String, String> hm : p1.getAssets().entrySet()) {
+            System.out.println(hm.getKey() + ": " + hm.getValue());
+        }
     }
 
     public static void main(String[] args) {

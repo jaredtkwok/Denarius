@@ -1,13 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*  
+ *******************************************************************************
+ *  Denarius
+ *  Insurance.java
+ *  Different types of insurances in the game
+ *  Linked to Player
+ *  Author: Jared Kwok
+ *******************************************************************************
  */
 package denarius;
 
-/**
- *
- * @author Jared
- */
 public class Insurance {
 
     private String[] insuranceTypes = {"Life", "Medical", "House/Content", "Car"};
