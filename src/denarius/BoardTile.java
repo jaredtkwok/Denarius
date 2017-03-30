@@ -16,47 +16,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BoardTile {
-    // Mod 14 Tiles - repeated fortnightly
+    // Tile Value 
 
-    private HashMap<Integer, ArrayList<String>> tile14 = new HashMap<>();
-    // Mod 30 Tiles - repeated monthly
-    private HashMap<Integer, ArrayList<String>> tile30 = new HashMap<>();
+    private HashMap<Integer, ArrayList<String>> tileVal = new HashMap<>();
 
-    public BoardTile() {
-        int divider = 0;    // Decides which Hashmap to put tile in
+    public BoardTile(String file) {
+        
         int key = 0;    // Remainder
         String[] splitText;     // Splits input from reader to be put into Hashmap
         String value;   //  Text in 3 sections that is split later
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/denarius/gameValues/boardTileValues.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String tileValue = "";
             while ((tileValue = br.readLine()) != null) {
                 if (tileValue.contains("//")) {
-                    if (tileValue.contains("Mod")) {
-                        divider = Integer.parseInt(tileValue.split(" ")[2]);
-                    }
+                    // Ignores line 
                 } else {
                     splitText = tileValue.split("-");
                     key = Integer.parseInt(splitText[0]);
                     value = splitText[1];
-                    if (divider == 14) {
-                        if (tile14.containsKey(key)) {
-                            tile14.get(key).add(value);
-                        } else {
-                            tile14.put(key, new ArrayList<String>());
-                            tile14.get(key).add(value);
-                        }
+
+                    if (tileVal.containsKey(key)) {
+                        tileVal.get(key).add(value);
                     } else {
-                        if (tile30.containsKey(key)) {
-                            tile30.get(key).add(value);
-                        } else {
-                            tile30.put(key, new ArrayList<String>());
-                            tile30.get(key).add(value);
-                        }
+                        tileVal.put(key, new ArrayList<String>());
+                        tileVal.get(key).add(value);
                     }
+
                 }
+                br.close();
             }
-            br.close();
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         } catch (IOException ex) {
@@ -64,11 +53,7 @@ public class BoardTile {
         }
     }
 
-    public ArrayList<String> getTile(int rem, int set) {
-        if (set == 1) {
-            return tile14.get(rem);
-        } else {
-            return tile30.get(rem);
-        }
+    public ArrayList<String> getTile(int rem) {
+        return tileVal.get(rem);
     }
 }

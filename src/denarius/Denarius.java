@@ -19,17 +19,18 @@ public class Denarius {
     private Player p1;
     private int prevPos;
     private int d;
-    private BoardTile tile;
+    private BoardTile tile14, tile30;
     private Assets gameAssets;
     private Cards drawACard;
 
     public Denarius() {
         dice = new Dice();
-        tile = new BoardTile();
+        tile14 = new BoardTile("src/denarius/gameValues/boardTileValues14.txt");
+        tile30 = new BoardTile("src/denarius/gameValues/boardTileValues30.txt");
         drawACard = new Cards();
         drawACard.shuffleCards();
         gameAssets = new Assets("src/denarius/gameValues/assets.txt");
-        
+
     }
 
     public void startGame() {
@@ -145,9 +146,9 @@ public class Denarius {
         int modDay = 0;
         for (int i = 0; i < d; i++) {
             modDay = (prevPos + i) % 14;
-            balanceCalculator(modDay, 1, i);
+            balanceCalculator(modDay, i, 14);
             modDay = (prevPos + i) % 30;
-            balanceCalculator(modDay, 2, i);
+            balanceCalculator(modDay, i, 30);
         }
     }
 
@@ -155,14 +156,23 @@ public class Denarius {
     /* mod14 - Pay, Groceries, Rent/Mortgage  
      * mod30 - Phone, Utilities, Insurance
      */
-    private void balanceCalculator(int rem, int set, int tileInc) {
+    private void balanceCalculator(int rem, int tileInc, int mod) {
         ArrayList<String> section = new ArrayList<>();
         String[] output = new String[5];
         String[] splitText;
         int curTile = prevPos + tileInc;    // Current Tile
         try {
             // Chance for Null Pointer due to empty tiles
-            section = tile.getTile(rem, set);
+            switch (mod) {
+                case 14:
+                    section = tile14.getTile(rem);
+                    break;
+                case 30:
+                    section = tile30.getTile(rem);
+                    break;
+                default:
+                    break;
+            }
             for (int i = 0; i < section.size(); i++) {
                 output[i] = section.get(i);
             }
