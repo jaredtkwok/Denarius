@@ -3,6 +3,7 @@
  *  Denarius
  *  Assets.java
  *  Assets which players can obtain during the game
+ *  NOT to be confused with image/animation assets
  *  Author: Jared Kwok
  *******************************************************************************
  */
@@ -50,13 +51,15 @@ public class Assets {
             }
             br.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("File not found");
+            System.out.println("File not found - Assets");
         } catch (IOException ex) {
-            System.out.println("Read line Error");
+            System.out.println("Read line Error - Assets");
         }
     }
 
     public HashMap<String, String> getAssets() {
         return assets;
     }
+    
+    
 }

@@ -5,17 +5,20 @@
 // -(Insurance/Text)-(Value)
 // Some cards have a second value if you have insurance
 // Number of Cards 27
+// Increase
+Tax Refund-Increase-1000
+Won a contest-Increase-750
+Inherited-Increase-10000
+Pay Bonus-Increase-2000
+Lucky Draw-Increase-5000
+Found Money-Increase-100
+// Decrease
 School Fees Due: Pay-Decrease-150
 School Outing: Pay-Decrease-50
-Unable to work No Income-Constant-3-Life-0
-Redundant No Income-Constant-2
-Redundant No Income-Constant-3
 Visit GP Pay-Decrease-50
-Tax Refund-Increase-1000
 Surgery-Decrease-3000-Medical-400
 Birthday Party-Decrease-500
 Wedding Anniversary-Decrease-1000
-You got a Credit Card-Decrease-2000
 Family passed away, funeral cost-Decrease-1500
 Leaky Roof-Decrease-750
 Toilet Repair-Decrease-250
@@ -23,12 +26,15 @@ Car Accident-Decrease-2500-Car-300
 Fridge Broke-Decrease-1200
 Traffic Fine-Decrease-100
 Outstanding Tax-Decrease-2000
-Discount Card-None-50-%
-Inherited-Increase-10000
-Pay Bonus-Increase-2000
-Lucky Draw-Increase-5000
-Found Money-Increase-100
-Won a car-Asset-30000 20000
-Won a contest-Increase-750
+// Decrease/Constant
+You got a Credit Card-Decrease/Constant-2000 20
 Bought Furniture-Decrease/Constant-500 250-Total-5000
-Bought Sound System-Dcrease/Constant-300 150-Total-3000
+Bought Sound System-Decrease/Constant-300 150-Total-3000
+// Constant
+Unable to work No Income-Constant-42-Life-0
+Redundant No Income-Constant-28
+Redundant No Income-Constant-42
+// None
+Discount Card-None-50-%
+Won a car-Asset-30000 20000
+

@@ -35,16 +35,16 @@ public class Cards {
             }
             br.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("File not found");
+            System.out.println("File not found - Cards");
         } catch (IOException ex) {
-            System.out.println("Read line Error");
+            System.out.println("Read line Error - Cards");
         }
     }
     
     public void shuffleCards(){
         try {
-            for (int i = cardText.length; i >= 0; i--) {
-                int selectIndex = (int) ((Math.random()*100));
+            for (int i = 0; i < cardText.length; i++) {
+                int selectIndex = (int) ((Math.random()*100)%cardText.length);
                 String temp = cardText[i];
                 cardText[i] = cardText[selectIndex];
                 cardText[selectIndex] = temp;
@@ -53,5 +53,4 @@ public class Cards {
             System.err.println("Shuffle Error");
         }
     }
-    
 }

@@ -9,3 +9,6 @@
 12-Decrease MedicalInsurance 80
 24-Decrease HouseInsurance 350
 25-Decrease CarInsurance 40
+// Other
+5-Decrease Petrol 80
+17-Decrease Petrol 80

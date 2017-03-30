@@ -44,12 +44,12 @@ public class BoardTile {
                     }
 
                 }
-                br.close();
             }
+            br.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("File not found");
+            System.out.println("File not found - Tiles");
         } catch (IOException ex) {
-            System.out.println("Read line Error");
+            System.out.println("Read line Error - Tiles");
         }
     }
 

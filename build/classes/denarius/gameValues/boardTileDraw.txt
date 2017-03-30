@@ -1,0 +1,14 @@
+// Draw Tiles is related to Cards class
+// Format is as follows
+// Remainder - Draw 
+// Mod 84
+8-Draw
+14-Draw
+20-Draw
+26-Draw
+47-Draw
+50-Draw
+56-Draw
+65-Draw
+74-Draw
+80-Draw
