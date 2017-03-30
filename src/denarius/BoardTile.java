@@ -28,7 +28,7 @@ public class BoardTile {
         String[] splitText;     // Splits input from reader to be put into Hashmap
         String value;   //  Text in 3 sections that is split later
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/denarius/boardTileValues.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("src/denarius/gameValues/boardTileValues.txt"));
             String tileValue = "";
             while ((tileValue = br.readLine()) != null) {
                 if (tileValue.contains("//")) {

@@ -19,17 +19,23 @@ public class Assets {
     private HashMap<String, String> pAssets = new HashMap<>();
     // Assets gain while playing
     private HashMap<String, String> assets = new HashMap<>();
+    private String[] assetKey;
     // Create second constructor for starter assets
 
     public Assets(String file) {
         String[] splitText;     // Splits input from reader to be put into Hashmap
         String key;             // Name of asset
         String value;           // Value of assest and FSV
+        int keyNum = 0;;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String assetValue;
             while ((assetValue = br.readLine()) != null) {
                 if (assetValue.contains("//")) {
+                    if(assetValue.contains("Number of Assets")){
+                        splitText = assetValue.split(" ");
+                        assetKey = new String[Integer.parseInt(splitText[4])];
+                    }
                 } else {
                     splitText = assetValue.split("-");
                     key = splitText[0];
@@ -38,6 +44,8 @@ public class Assets {
                         pAssets.put(key, value);
                     } else {
                         assets.put(key, value);
+                        assetKey[keyNum] = key;
+                        keyNum++;
                     }
                 }
             }

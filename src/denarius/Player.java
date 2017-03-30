@@ -9,26 +9,24 @@
  */
 package denarius;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class Player {
 
     private String name;
-    private boolean housing = false;
-    private int balance = 0;
-    private int position = 1;
-    private Insurance[] insurance = new Insurance[4];
-    private Assets oAssets;
+    private boolean housing = false; // Owning or Renting a house
+    private int balance = 0; // Amount of money player has
+    private int position = 1; // Current Day/Position on Board
+    private Insurance[] insurance = new Insurance[4]; // Insurance Owned
+    private Assets oAssets; // Player Assets
+    private boolean hasCreditCard; // If player has a Credit Card
+    private int noIncome = 0; // Duration of no income
 
     public Player() {
         name = "No Name";
         // Initialise Variables
         iInsurance();
-        oAssets = new Assets("src/denarius/startingAssets.txt");
+        oAssets = new Assets("src/denarius/gameValues/startingAssets.txt");
 
     }
 
@@ -36,13 +34,25 @@ public class Player {
         this.name = name;
         // Initialise Variables
         iInsurance();
-        oAssets = new Assets("src/denarius/startingAssets.txt");
+        oAssets = new Assets("src/denarius/gameValues/startingAssets.txt");
     }
 
     public String getName() {
         return name;
     }
-
+    
+    public int getNoIncome(){
+        return noIncome;
+    }
+    
+    public boolean hasCreditCard(){
+        return hasCreditCard;
+    }
+    
+    public void changeCredCrad(){
+        hasCreditCard = !hasCreditCard;
+    }
+    
     // Housing Section
     // True - Own, False - Rent
     public void changeHousing() {
@@ -87,15 +97,10 @@ public class Player {
     // End Balance Section
 
     // Asset Section
-    public Assets getAssets() {
-        return oAssets;
+    public HashMap<String, String> getAssets() {
+        return oAssets.getAssets(1);
     }
-
-    public int assetSize() {
-        return oAssets.getAssets(1).size();
-    }
-
-
+    
     // x is the position of insurance in array
     public Assets removeAsset(String k) {
         return oAssets;

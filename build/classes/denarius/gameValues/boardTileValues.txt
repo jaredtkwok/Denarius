@@ -1,0 +1,17 @@
+// Format of a tile to be read is as follows
+// Remainder - Increase/Decrease (space) Type of Tile (space) Value
+// Mod 14
+1-Increase Income 2000
+7-Decrease Groceries 200
+13-Decrease Groceries 200
+2-Decrease Rent 1000
+2-Decrease Mortgage 2000
+// Mod 30
+// Bills
+3-Decrease Phone 100
+10-Decrease Utilities 180
+// Insurance
+4-Decrease LifeInsurance 100
+12-Decrease MedicalInsurance 80
+24-Decrease HouseInsurance 350
+25-Decrease CarInsurance 40

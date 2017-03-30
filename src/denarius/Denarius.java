@@ -21,10 +21,15 @@ public class Denarius {
     private int d;
     private BoardTile tile;
     private Assets gameAssets;
+    private Cards drawACard;
 
     public Denarius() {
         dice = new Dice();
         tile = new BoardTile();
+        drawACard = new Cards();
+        drawACard.shuffleCards();
+        gameAssets = new Assets("src/denarius/gameValues/assets.txt");
+        
     }
 
     public void startGame() {
@@ -36,7 +41,7 @@ public class Denarius {
         System.out.println("To continue with the game type 'ROLL' ");
         System.out.println("To quit type 'Quit' ");
         //System.out.println("For help during the game type 'Help' ");
-        
+
         // Setup Profile
         System.out.println("Enter your name: ");
         String input = scan.nextLine();
@@ -45,8 +50,7 @@ public class Denarius {
         } else {
             p1 = new Player(input);
         }
-        
-        gameAssets = new Assets("src/denarius/Assets.txt");
+
         // Own/Rent and starting Balance
         System.out.println("Own or Rent a House: ");
         while (setupInput) {
@@ -69,12 +73,12 @@ public class Denarius {
                     + " Insurance? Y/N");
             while (setupInput) {
                 input = scan.nextLine();
-                if (input.compareToIgnoreCase("YES") == 0 
+                if (input.compareToIgnoreCase("YES") == 0
                         || input.compareToIgnoreCase("Y") == 0) {
                     p1.getInsurance(i).setInsurance(true);
                     setupInput = false;
-                } else if (input.compareToIgnoreCase("NO") == 0 
-                        || input.compareToIgnoreCase("N") == 0 ) {
+                } else if (input.compareToIgnoreCase("NO") == 0
+                        || input.compareToIgnoreCase("N") == 0) {
                     // Does nothing here as by default you don't have insurance
                     setupInput = false;
                 } else {
@@ -104,8 +108,26 @@ public class Denarius {
         if (command.compareToIgnoreCase("QUIT") == 0) {
             gameRunning = false;
             return true;
-        } else if (command.toLowerCase().contains("SELL")) {
-            return true;
+        } else if (command.toLowerCase().contains("sell")) {
+            String[] splitText = command.split(" ");
+            if (!splitText[1].isEmpty()) {
+                String key = "";
+                for (int i = 1; i < splitText.length; i++) {
+                    key = key + " " + splitText[i];
+                }
+                key = key.substring(1, key.length());
+                if (p1.getAssets().containsKey(key)) {
+                    String[] saleVal = p1.getAssets().remove(key).split(" ");
+                    int costVal = Integer.parseInt(saleVal[0]);
+                    int sellVal = (int) (costVal * 0.8);
+                    p1.addBalance(sellVal);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         } else if (command.compareToIgnoreCase("ROLL") == 0) {
             prevPos = p1.getPos();
             d = dice.roll();
@@ -166,9 +188,13 @@ public class Denarius {
                         }
                     }
                 } else if (splitText[0].compareTo("Increase") == 0) {
-                    p1.addBalance(tileValue);
-                    System.out.println(curTile + ": " + tileString + " $"
-                            + tileValue);
+                    if (tileString.contains("Income") && p1.getNoIncome() > 0) {
+                        // Don't Give Income
+                    } else {
+                        p1.addBalance(tileValue);
+                        System.out.println(curTile + ": " + tileString + " $"
+                                + tileValue);
+                    }
                 } else {
                     p1.subtractBalance(tileValue);
                     System.out.println(curTile + ": " + tileString + " -$"
@@ -201,7 +227,7 @@ public class Denarius {
                     + p1.getInsurance(i).getOwned());
         }
         System.out.println("Assets - Value - FSV: ");
-        for (Entry<String, String> hm : p1.getAssets().getAssets(1).entrySet()) {
+        for (Entry<String, String> hm : p1.getAssets().entrySet()) {
             System.out.println(hm.getKey() + ": " + hm.getValue());
         }
     }
