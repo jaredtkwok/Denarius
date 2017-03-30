@@ -98,7 +98,7 @@ public class Player {
 
     // Asset Section
     public HashMap<String, String> getAssets() {
-        return oAssets.getAssets(1);
+        return oAssets.getAssets();
     }
     
     // x is the position of insurance in array

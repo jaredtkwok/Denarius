@@ -15,35 +15,34 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Assets {
-    // Player Owned Assets at the start
-    private HashMap<String, String> pAssets = new HashMap<>();
+
     // Assets gain while playing
     private HashMap<String, String> assets = new HashMap<>();
+    // This variable makes it easier to access as the key is a String
     private String[] assetKey;
-    // Create second constructor for starter assets
 
     public Assets(String file) {
         String[] splitText;     // Splits input from reader to be put into Hashmap
         String key;             // Name of asset
         String value;           // Value of assest and FSV
-        int keyNum = 0;;
+        boolean notStartAssets = false; 
+        int keyNum = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String assetValue;
             while ((assetValue = br.readLine()) != null) {
                 if (assetValue.contains("//")) {
-                    if(assetValue.contains("Number of Assets")){
+                    if (assetValue.contains("Number of Assets")) {
                         splitText = assetValue.split(" ");
                         assetKey = new String[Integer.parseInt(splitText[4])];
+                        notStartAssets = true;
                     }
                 } else {
                     splitText = assetValue.split("-");
                     key = splitText[0];
                     value = splitText[1];
-                    if (file.contains("starting")) {
-                        pAssets.put(key, value);
-                    } else {
-                        assets.put(key, value);
+                    assets.put(key, value);
+                    if (notStartAssets) {
                         assetKey[keyNum] = key;
                         keyNum++;
                     }
@@ -57,13 +56,7 @@ public class Assets {
         }
     }
 
-    public HashMap<String, String> getAssets(int set) {
-        if (set == 1) {
-            return pAssets;
-        } else {
-            return assets;
-        }
+    public HashMap<String, String> getAssets() {
+        return assets;
     }
-    
-    
 }
