@@ -26,10 +26,11 @@ Car Accident-Decrease-2500-Car-300
 Fridge Broke-Decrease-1200
 Traffic Fine-Decrease-100
 Outstanding Tax-Decrease-2000
-// Decrease/Constant
-You got a Credit Card-Decrease/Constant-2000 20
-Bought Furniture-Decrease/Constant-500 250-Total-5000
-Bought Sound System-Decrease/Constant-300 150-Total-3000
+// Decrease/Constant complete after text based is done
+//You got a Silver Card-Decrease/Constant-2000 20
+//You got a Gold Card-Decrease/Constant-5000 50
+//Bought Furniture-Decrease/Constant-500 250-Total-5000
+//Bought Sound System-Decrease/Constant-300 150-Total-3000
 // Constant
 Unable to work No Income-Constant-42-Life-0
 Redundant No Income-Constant-28

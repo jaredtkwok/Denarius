@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Denarius {
 
-    private boolean gameRunning; 
+    private boolean gameRunning;
     private Dice dice;
     private Player p1; // Player
     private int prevPos; // previous playr position
@@ -150,7 +150,8 @@ public class Denarius {
             modDay = (prevPos + i) % 30;
             balanceCalculator(modDay, i, 30);
         }
-        constCostCalc();
+        // Do Later after text based is finished
+        //constCostCalc();
     }
 
     // Set is either 1 (mod14) or 2 (mod30)
@@ -180,15 +181,10 @@ public class Denarius {
 
             if (!output[0].isEmpty()) {
                 // Each tile has a String which split into sections of 3
-                // Inc/Dec - Type - value
-                if (p1.getHousing().contains("Rent") && rem == 2) {
-                    splitText = output[1].split(" ");
-                } else {
-                    splitText = output[0].split(" ");
-                }
-
-                String tileString = splitText[1];
-                int tileValue = Integer.parseInt(splitText[2]);
+                // [0]Inc/Dec - [1]Type - [2]value
+                splitText = output[0].split(" ");
+                String tileString = splitText[1]; // Name/Type
+                int tileValue = Integer.parseInt(splitText[2]);// Value 
                 if (tileString.contains("Insurance")) {
                     for (int i = 0; i < 4; i++) {
                         if (tileString.contains(p1.getInsurance(i).getInsurance())
@@ -198,7 +194,7 @@ public class Denarius {
                                     + tileValue);
                         }
                     }
-                } else if (splitText[0].compareTo("Increase") == 0) {
+                } else if (splitText[0].contains("Increase")) {
                     if (tileString.contains("Income") && p1.getIncome().getDuration() >= 1) {
                         // No Income
                         p1.getIncome().reduceDuration(d);
@@ -207,6 +203,11 @@ public class Denarius {
                         System.out.println(curTile + ": " + tileString + " $"
                                 + tileValue);
                     }
+                } else if ((p1.getHousing().contains("Rent") && mod == 14)
+                        || (p1.getHousing().contains("Own") && mod == 30)) {
+                    p1.subtractBalance(tileValue);
+                    System.out.println(curTile + ": " + tileString + " -$"
+                            + tileValue);
                 } else {
                     p1.subtractBalance(tileValue);
                     System.out.println(curTile + ": " + tileString + " -$"
@@ -217,11 +218,14 @@ public class Denarius {
             // Catches Null Pointer
         }
     }
-    
-    private void constCostCalc(){
-        //p1.getConstEffect();
-    } 
-    
+
+    private void constCostCalc() {
+        int subVal = 0; // Subtracted Value
+        for(int i = 0; i < p1.getConstCostSize(); i++){
+            subVal = p1.getConstCost()[i].getValue();
+        }
+    }
+
     // Player Profile
     private void showPlayerProfile() {
         /* Player Profile Layout

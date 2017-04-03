@@ -2,6 +2,7 @@
 // Remainder - Increase/Decrease (space) Type of Tile (space) Value
 // Mod 30
 // Bills
+2-Decrease Mortgage 2000
 3-Decrease Phone 100
 10-Decrease Utilities 180
 // Insurance

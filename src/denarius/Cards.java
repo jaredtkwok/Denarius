@@ -53,4 +53,13 @@ public class Cards {
             System.err.println("Shuffle Error");
         }
     }
+    
+    public void drawCard(){
+        String temp = cardText[0];
+        for (int i = 0; i < cardText.length-1; i++) {                
+                cardText[i] = cardText[i+1];
+            }
+        cardText[cardText.length-1] = temp; 
+    }
+    
 }

@@ -50,11 +50,11 @@ public class Player {
         return constIncome;
     }
     
-    public int getConstEffectSize(){
+    public int getConstCostSize(){
         return constC.length;
     }
 
-    public ConstantCost[] getConstEffect() {
+    public ConstantCost[] getConstCost() {
         return constC;
     }
     // End Constant Costs Section

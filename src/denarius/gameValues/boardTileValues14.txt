@@ -3,6 +3,5 @@
 // Mod 14
 1-Increase Income 2000
 2-Decrease Rent 1000
-2-Decrease Mortgage 2000
 7-Decrease Groceries 200
 13-Decrease Groceries 200
