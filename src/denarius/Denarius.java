@@ -14,14 +14,14 @@ import java.util.Scanner;
 
 public class Denarius {
 
-    private boolean gameRunning;
+    private boolean gameRunning; 
     private Dice dice;
-    private Player p1;
-    private int prevPos;
-    private int d;
-    private BoardTile tile14, tile30;
-    private Assets gameAssets;
-    private Cards drawACard;
+    private Player p1; // Player
+    private int prevPos; // previous playr position
+    private int d; // Dice roll value
+    private BoardTile tile14, tile30; // Tile effects
+    private Assets gameAssets; // Not images but player obtainable valuables
+    private Cards drawACard; // Game's card pack
 
     public Denarius() {
         dice = new Dice();
@@ -150,6 +150,7 @@ public class Denarius {
             modDay = (prevPos + i) % 30;
             balanceCalculator(modDay, i, 30);
         }
+        constCostCalc();
     }
 
     // Set is either 1 (mod14) or 2 (mod30)
@@ -198,8 +199,9 @@ public class Denarius {
                         }
                     }
                 } else if (splitText[0].compareTo("Increase") == 0) {
-                    if (tileString.contains("Income") && p1.getNoIncome() > 0) {
-                        // Don't Give Income
+                    if (tileString.contains("Income") && p1.getIncome().getDuration() >= 1) {
+                        // No Income
+                        p1.getIncome().reduceDuration(d);
                     } else {
                         p1.addBalance(tileValue);
                         System.out.println(curTile + ": " + tileString + " $"
@@ -215,7 +217,11 @@ public class Denarius {
             // Catches Null Pointer
         }
     }
-
+    
+    private void constCostCalc(){
+        //p1.getConstEffect();
+    } 
+    
     // Player Profile
     private void showPlayerProfile() {
         /* Player Profile Layout

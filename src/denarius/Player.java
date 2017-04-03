@@ -18,16 +18,18 @@ public class Player {
     private int balance = 0; // Amount of money player has
     private int position = 1; // Current Day/Position on Board
     private Insurance[] insurance = new Insurance[4]; // Insurance Owned
-    private Assets oAssets; // Player Assets
-    private boolean hasCreditCard; // If player has a Credit Card
-    private int noIncome = 0; // Duration of no income
+    private Assets oAssets; // Player Assets    
+    private ConstantCost[] constC; // Array of constant cost for deposit/credit card
+    private ConstantCost constIncome; // constant cost just for income
+    private final int maxConstCost = 5; // Max number of constant cost possible in a game
 
     public Player() {
         name = "No Name";
         // Initialise Variables
         iInsurance();
         oAssets = new Assets("src/denarius/gameValues/startingAssets.txt");
-
+        constIncome = new ConstantCost("Income", 0);
+        constC = new ConstantCost[maxConstCost];
     }
 
     public Player(String name) {
@@ -35,23 +37,27 @@ public class Player {
         // Initialise Variables
         iInsurance();
         oAssets = new Assets("src/denarius/gameValues/startingAssets.txt");
+        constIncome = new ConstantCost("Income", 0);
+        constC = new ConstantCost[maxConstCost];
     }
 
     public String getName() {
         return name;
     }
+    // Constant Costs Section
     
-    public int getNoIncome(){
-        return noIncome;
+    public ConstantCost getIncome(){
+        return constIncome;
     }
     
-    public boolean hasCreditCard(){
-        return hasCreditCard;
+    public int getConstEffectSize(){
+        return constC.length;
     }
-    
-    public void changeCredCrad(){
-        hasCreditCard = !hasCreditCard;
+
+    public ConstantCost[] getConstEffect() {
+        return constC;
     }
+    // End Constant Costs Section
     
     // Housing Section
     // True - Own, False - Rent
@@ -100,7 +106,7 @@ public class Player {
     public HashMap<String, String> getAssets() {
         return oAssets.getAssets();
     }
-    
+
     // x is the position of insurance in array
     public Assets removeAsset(String k) {
         return oAssets;
