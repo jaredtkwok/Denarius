@@ -4,38 +4,39 @@
 // (Card Text)-(Increase/Decrease/None/Asset/Constant)-(Value)
 // -(Insurance/Text)-(Value)
 // Some cards have a second value if you have insurance
-// Number of Cards 27
+// cards with no secondary text or value have N/A-0 for functional reasons
+// Number of Cards 25
 // Increase
-Tax Refund-Increase-1000
-Won a contest-Increase-750
-Inherited-Increase-10000
-Pay Bonus-Increase-2000
-Lucky Draw-Increase-5000
-Found Money-Increase-100
+Tax Refund-I-1000-N/A-0
+Won a contest-I-750-N/A-0
+Inherited-I-10000-N/A-0
+Pay Bonus-I-2000-N/A-0
+Lucky Draw-I-5000-N/A-0
+Found Money-I-100-N/A-0
 // Decrease
-School Fees Due: Pay-Decrease-150
-School Outing: Pay-Decrease-50
-Visit GP Pay-Decrease-50
-Surgery-Decrease-3000-Medical-400
-Birthday Party-Decrease-500
-Wedding Anniversary-Decrease-1000
-Family passed away, funeral cost-Decrease-1500
-Leaky Roof-Decrease-750
-Toilet Repair-Decrease-250
-Car Accident-Decrease-2500-Car-300
-Fridge Broke-Decrease-1200
-Traffic Fine-Decrease-100
-Outstanding Tax-Decrease-2000
+School Fees Due: Pay-D-150-N/A-0
+School Outing: Pay-D-50-N/A-0
+Visit GP Pay-D-50-N/A-0
+Surgery-D-3000-Medical-400
+Birthday Party-D-500-N/A-0
+Wedding Anniversary-D-1000-N/A-0
+Family passed away, funeral cost-D-1500-N/A-0
+Leaky Roof-D-750-N/A-0
+Toilet Repair-D-250-N/A-0
+Car Accident-D-2500-Car-300
+Fridge Broke-D-1200-N/A-0
+Traffic Fine-D-100-N/A-0
+Outstanding Tax-D-2000-N/A-0
 // Decrease/Constant complete after text based is done
-//You got a Silver Card-Decrease/Constant-2000 20
-//You got a Gold Card-Decrease/Constant-5000 50
-//Bought Furniture-Decrease/Constant-500 250-Total-5000
-//Bought Sound System-Decrease/Constant-300 150-Total-3000
+//You got a Silver Card-D/C-2000 20-N/A-0
+//You got a Gold Card-D/C-5000 50-N/A-0
+//Bought Furniture-D/C-500 250-Total-5000
+//Bought Sound System-D/C-300 150-Total-3000
 // Constant
-Unable to work No Income-Constant-42-Life-0
-Redundant No Income-Constant-28
-Redundant No Income-Constant-42
+Unable to work No Income-C-42-Life-0
+Redundant No Income-C-28-N/A-0
+Redundant No Income-C-42-N/A-0
 // None
-Discount Card-None-50-%
-Won a car-Asset-30000 20000
+Discount Card-None-50-%-0
+Won a car-Asset-30000 20000-N/A-0
 

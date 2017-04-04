@@ -35,7 +35,7 @@ public class ConstantCost {
         duration -= diceRoll;
     }
 
-    public void increaseDuration(int incDuration) {
+    public void incDuration(int incDuration) {
         duration += incDuration;
     }
     

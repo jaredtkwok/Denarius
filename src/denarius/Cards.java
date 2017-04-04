@@ -54,12 +54,12 @@ public class Cards {
         }
     }
     
-    public void drawCard(){
+    public String drawCard(){
         String temp = cardText[0];
         for (int i = 0; i < cardText.length-1; i++) {                
                 cardText[i] = cardText[i+1];
             }
-        cardText[cardText.length-1] = temp; 
-    }
-    
+        cardText[cardText.length-1] = temp;
+        return temp;
+    }    
 }

@@ -19,7 +19,7 @@ public class Denarius {
     private Player p1; // Player
     private int prevPos; // previous playr position
     private int d; // Dice roll value
-    private BoardTile tile14, tile30; // Tile effects
+    private BoardTile tile14, tile30, tileDraw; // Tile effects
     private Assets gameAssets; // Not images but player obtainable valuables
     private Cards drawACard; // Game's card pack
 
@@ -27,6 +27,7 @@ public class Denarius {
         dice = new Dice();
         tile14 = new BoardTile("src/denarius/gameValues/boardTileValues14.txt");
         tile30 = new BoardTile("src/denarius/gameValues/boardTileValues30.txt");
+        tileDraw = new BoardTile("src/denarius/gameValues/boardTileDraw.txt");
         drawACard = new Cards();
         drawACard.shuffleCards();
         gameAssets = new Assets("src/denarius/gameValues/assets.txt");
@@ -149,6 +150,8 @@ public class Denarius {
             balanceCalculator(modDay, i, 14);
             modDay = (prevPos + i) % 30;
             balanceCalculator(modDay, i, 30);
+            modDay = (prevPos + i) % 84;
+            drawCard(modDay, i);
         }
         // Do Later after text based is finished
         //constCostCalc();
@@ -159,30 +162,30 @@ public class Denarius {
      * mod30 - Phone, Utilities, Insurance
      */
     private void balanceCalculator(int rem, int tileInc, int mod) {
-        ArrayList<String> section = new ArrayList<>();
-        String[] output = new String[5];
-        String[] splitText;
-        int curTile = prevPos + tileInc;    // Current Tile
+        ArrayList<String> tileVal = new ArrayList<>(); // Tile value
+        String[] splitText = new String[3];
+        int curTile = prevPos + tileInc; // Current Tile
         try {
             // Chance for Null Pointer due to empty tiles
             switch (mod) {
                 case 14:
-                    section = tile14.getTile(rem);
+                    tileVal = tile14.getTile(rem);
                     break;
                 case 30:
-                    section = tile30.getTile(rem);
+                    tileVal = tile30.getTile(rem);
                     break;
                 default:
                     break;
             }
-            for (int i = 0; i < section.size(); i++) {
-                output[i] = section.get(i);
-            }
-
-            if (!output[0].isEmpty()) {
+            // Recoding needed if a tile has the same remainder
+            if (!tileVal.isEmpty()) {
+                String[] multiTileVal = new String[tileVal.size()]; // Incase a tile has 2 values
+                for (int i = 0; i < tileVal.size(); i++) {
+                    multiTileVal[i] = tileVal.get(i);
+                }
                 // Each tile has a String which split into sections of 3
                 // [0]Inc/Dec - [1]Type - [2]value
-                splitText = output[0].split(" ");
+                splitText = multiTileVal[0].split(" ");
                 String tileString = splitText[1]; // Name/Type
                 int tileValue = Integer.parseInt(splitText[2]);// Value 
                 if (tileString.contains("Insurance")) {
@@ -219,9 +222,71 @@ public class Denarius {
         }
     }
 
+    // Cards are from cards.txt
+    // Draw tiles from boardTileDraw.txt
+    private void drawCard(int rem, int tileInc) {
+        ArrayList<String> tileVal = new ArrayList<>();
+        try {
+            tileVal = tileDraw.getTile(rem);
+
+            if (!tileVal.isEmpty()) {
+                String cardText = drawACard.drawCard();
+                // String[5] because at most the card has 5 sections
+                String[] splitText = new String[5];
+                splitText = cardText.split("-");
+                int curTile = prevPos + tileInc;
+                int val1 = Integer.parseInt(splitText[2]);
+                int val2 = Integer.parseInt(splitText[4]);
+                
+                switch (splitText[1]) {
+                    case ("I"):  
+                        p1.addBalance(val1);
+                        System.out.println(curTile + ": You Drew: " + splitText[0]
+                                + ", You receive $" + val1);
+                        break;
+                    case ("D/C"):
+                        // Complete this after ConstantCost is fully done
+                        break;
+                    case ("D"):                    
+                        if (splitText[3].contains("Car")) {
+                            p1.subtractBalance(val2);
+                            System.out.println(curTile + ": You Drew: " + splitText[0]
+                                    + ", You have Car Insurance so you pay $" + val2);
+                        } else if (splitText[3].contains("Medical")) {
+                            p1.subtractBalance(val2);
+                            System.out.println(curTile + ": You Drew: " + splitText[0]
+                                    + ", You have Medical Insurance so you pay $" + val2);
+                        } else {
+                            p1.subtractBalance(val1);
+                            System.out.println(curTile + ": You Drew: " + splitText[0]
+                                    + ", You pay $" + val1);
+                        }
+                        break;
+                    case ("C"):           
+                        if (splitText[3].contains("Life")) {
+                            System.out.println(curTile + ": You Drew: " + splitText[0]
+                                    + ", You have Life Insurance, so nothing happens");
+                        } else {
+                            p1.getIncome().incDuration(val1);
+                            System.out.println(curTile + ": You Drew: " + splitText[0]
+                                    + ", You didn't have Life Insurance and you have "
+                                    + "no income for " + val1 + " days");
+                        }
+                        break;
+                    default:
+                        System.out.println("Opps");
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            // Catches Null Pointer
+        }
+    }
+
+    // Plan through the logic of method
     private void constCostCalc() {
         int subVal = 0; // Subtracted Value
-        for(int i = 0; i < p1.getConstCostSize(); i++){
+        for (int i = 0; i < p1.getConstCostSize(); i++) {
             subVal = p1.getConstCost()[i].getValue();
         }
     }
