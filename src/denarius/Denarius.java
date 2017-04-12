@@ -9,7 +9,9 @@
 package denarius;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Denarius {
@@ -22,6 +24,7 @@ public class Denarius {
     private BoardTile tile14, tile30, tileDraw; // Tile effects
     private Assets gameAssets; // Not images but player obtainable valuables
     private Cards drawACard; // Game's card pack
+    private Scanner scan;
 
     public Denarius() {
         dice = new Dice();
@@ -35,7 +38,7 @@ public class Denarius {
     }
 
     public void startGame() {
-        Scanner scan = new Scanner(System.in);
+        scan = new Scanner(System.in);
         gameRunning = true;
         boolean setupInput = true;
         // Starting information about how to play
@@ -66,6 +69,18 @@ public class Denarius {
                 setupInput = false;
             } else {
                 System.out.println("Please put Own or Rent");
+            }
+        }
+        // Your assets
+        System.out.println("These are your assets: ");
+        int newLine = 0;
+        for (Entry<String, String> hm : p1.getAssets().entrySet()) {
+            if (newLine <= 1) {
+                System.out.format("|%-30s", hm.getKey() + ": " + hm.getValue());
+                newLine++;
+            } else {
+                System.out.format("|%-30s|\n", hm.getKey() + ": " + hm.getValue());
+                newLine = 0;
             }
         }
         // What insurances you have
@@ -237,9 +252,9 @@ public class Denarius {
                 int curTile = prevPos + tileInc;
                 int val1 = Integer.parseInt(splitText[2]);
                 int val2 = Integer.parseInt(splitText[4]);
-                
+
                 switch (splitText[1]) {
-                    case ("I"):  
+                    case ("I"):
                         p1.addBalance(val1);
                         System.out.println(curTile + ": You Drew: " + splitText[0]
                                 + ", You receive $" + val1);
@@ -247,7 +262,7 @@ public class Denarius {
                     case ("D/C"):
                         // Complete this after ConstantCost is fully done
                         break;
-                    case ("D"):                    
+                    case ("D"):
                         if (splitText[3].contains("Car")) {
                             p1.subtractBalance(val2);
                             System.out.println(curTile + ": You Drew: " + splitText[0]
@@ -262,7 +277,7 @@ public class Denarius {
                                     + ", You pay $" + val1);
                         }
                         break;
-                    case ("C"):           
+                    case ("C"):
                         if (splitText[3].contains("Life")) {
                             System.out.println(curTile + ": You Drew: " + splitText[0]
                                     + ", You have Life Insurance, so nothing happens");
@@ -271,6 +286,48 @@ public class Denarius {
                             System.out.println(curTile + ": You Drew: " + splitText[0]
                                     + ", You didn't have Life Insurance and you have "
                                     + "no income for " + val1 + " days");
+                        }
+                        break;
+                    case ("A"):
+                        if (splitText[0].contains("Discount")) {
+                            Random random = new Random();
+                            List<String> keys = new ArrayList<>(gameAssets.getAssets().keySet());
+                            String key = keys.get(random.nextInt(keys.size()));
+                            String value = gameAssets.getAssets().get(key);
+                            String[] splitText2 = value.split(" ");
+                            System.out.println("----------Buying Assets----------");
+                            int buyPrice = Integer.parseInt(splitText2[0]) / 2;
+                            System.out.println(key + " Buying Price: " + buyPrice);
+                            System.out.println("Type Y/N");
+                            boolean decision = true;
+                            while (decision) {
+                                String input = scan.nextLine();
+                                if (input.compareToIgnoreCase("YES") == 0) {
+                                    p1.subtractBalance(buyPrice);
+                                    p1.getAssets().put(key, value);
+                                    decision = false;
+                                } else if (input.compareToIgnoreCase("NO") == 0) {
+                                    decision = false;
+                                } else {
+                                    System.out.println("Please Type Y/N");
+                                }
+                            }
+
+                        } else if (splitText[0].contains("a car")) {
+                            int carNum = 1;
+                            String key = "Car O";
+                            String value = "30000 20000";
+                            boolean carNotAdd = true;
+                            while (carNotAdd) {
+                                key = key + carNum;
+                                if (!p1.getAssets().containsKey(key)) {
+                                    p1.getAssets().put(key, value);
+                                    carNotAdd = false;
+                                } else {
+                                    key = "Car O";
+                                    carNum++;
+                                }
+                            }
                         }
                         break;
                     default:
@@ -306,15 +363,25 @@ public class Denarius {
         System.out.println("Position: " + p1.getPos());
         System.out.println("Balance: $" + p1.getBalance());
         System.out.println("Housing: " + p1.getHousing());
-        System.out.println("Insurance: ");
+        System.out.print("Insurance: ");
         for (int i = 0; i < 4; i++) {
-            System.out.println(p1.getInsurance(i).getInsurance() + ": \t"
-                    + p1.getInsurance(i).getOwned());
+            if (p1.getInsurance(i).getOwned().contains("Yes")) {
+                System.out.format("%-10s", p1.getInsurance(i).getInsurance() + "    ");
+            }
         }
+        System.out.println("");
         System.out.println("Assets - Value - FSV: ");
+        int newLine = 0;
         for (Entry<String, String> hm : p1.getAssets().entrySet()) {
-            System.out.println(hm.getKey() + ": " + hm.getValue());
+            if (newLine <= 1) {
+                System.out.format("|%-30s", hm.getKey() + ": " + hm.getValue());
+                newLine++;
+            } else {
+                System.out.format("|%-30s|\n", hm.getKey() + ": " + hm.getValue());
+                newLine = 0;
+            }
         }
+        System.out.println("");
     }
 
     public static void main(String[] args) {

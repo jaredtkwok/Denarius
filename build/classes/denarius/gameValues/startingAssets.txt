@@ -2,7 +2,7 @@
 // Name - Cost FSV
 // Starting
 Property-475000 400000
-Car-10000 6000
+Car S1-10000 6000
 Laptop S1-1500 500
 Fridge-2000 700
 Washing Machine-1000 400 

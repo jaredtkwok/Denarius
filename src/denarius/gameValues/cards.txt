@@ -36,7 +36,7 @@ Outstanding Tax-D-2000-N/A-0
 Unable to work No Income-C-42-Life-0
 Redundant No Income-C-28-N/A-0
 Redundant No Income-C-42-N/A-0
-// None
-Discount Card-None-50-%-0
-Won a car-Asset-30000 20000-N/A-0
+// Asset
+Discount Card-A-50-%-0
+Won a car-A-30000 20000-N/A-0
 

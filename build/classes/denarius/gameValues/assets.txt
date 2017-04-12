@@ -1,6 +1,6 @@
 // Format of a assets to be read is as follows
 // Name - Cost FSV
-// Number of Assets 20
+// Number of Assets 24
 Laptop O1-2000 600
 Television O1-1500 500
 Sound System-2500 750
@@ -21,3 +21,4 @@ Sunglasses-300 50
 Gym Set-3500 800
 Antique Cabinet-3000 1000
 Persian Rug-2500 800
+Car O1-30000 20000
