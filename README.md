@@ -8,5 +8,7 @@ Many errors may occur such as missing methods from created classes or duplicate 
 I am not a professional developer but I have graduated with a computer science major
 
 Progress
+
 -Text Based version of the game is working as intended
+
 -Graphical version is going to be done in Unity instead of netbeans as Unity provides a better look for the layout
